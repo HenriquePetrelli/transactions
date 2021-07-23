@@ -11,14 +11,12 @@ export class TransactionService {
   constructor() { }
 
   async getTransactions(endpoint: string) {
-    let api = environment.baseUrl + endpoint;
-    let request;
-    await axios.get(api)
+    let url = environment.baseUrl + endpoint;
+    return await axios.get(url)
       .then((response: AxiosResponse<Transaction[]>) => {
-        request = response.data;
-      }).catch(()=> {
-        console.log("ERRO!!");
+        return response;
+      }).catch((error)=> {
+        return error;
       })
-      return request;
   }
 }

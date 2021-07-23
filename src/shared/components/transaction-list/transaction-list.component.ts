@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServerData } from 'src/shared/interfaces/server-data';
 import { Transaction } from 'src/shared/interfaces/transaction';
 import { TransactionService } from 'src/shared/services/transaction.service';
 
@@ -18,13 +19,12 @@ export class TransactionListComponent implements OnInit {
 
   async getTransactionList() {
    await this._service.getTransactions("transactions")
-    .then(async (response: any) => {
-     await this.transactions.push(response);
+    .then(async (response: ServerData) => {
+     this.transactions.push(response.data);
       console.log(this.transactions)
     }).catch(()=> {
       console.log("ERRO!!");
     })
-
   }
 
 }
