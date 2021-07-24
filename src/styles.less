@@ -1,13 +1,24 @@
-@import url('./assets/variables/variables.less');
+@import url("./assets/variables/variables.less");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Source Sans Pro", Helvetica, Arial, Sans-Serif;
-    background-color: @warren-primary;
-    color: @warren-third;
+  font-family: "Source Sans Pro", Helvetica, Arial, Sans-Serif;
+  background-color: @warren-primary;
+  color: @warren-third;
+}
+
+::-webkit-scrollbar {
+  width: 18px;
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 10px #cfcfcf;
+}
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 100px #ddd;
+  border-radius: 10px;
 }
