@@ -19,4 +19,14 @@ export class TransactionService {
         return error;
       })
   }
+
+  async getTransactionsById(endpoint: string, param: string | undefined) {
+    let url = environment.baseUrl + endpoint + param;
+    return await axios.get(url)
+      .then((response: AxiosResponse<Transaction>) => {
+        return response;
+      }).catch((error)=> {
+        return error;
+      })
+  }
 }
