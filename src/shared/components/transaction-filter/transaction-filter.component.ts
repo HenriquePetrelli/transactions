@@ -38,7 +38,7 @@ export class TransactionFilterComponent implements OnInit {
   async FilterTransactionsByName() {
     await this.transactionListComponent.transactions.filter(
       async (transaction: Transaction) => {
-        if (transaction.title == this.transactionName)
+        if (transaction.title == this.transactionName.trim())
           await this.transactionFilter.push(transaction);
       }
     );

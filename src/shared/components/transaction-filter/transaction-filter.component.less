@@ -86,11 +86,10 @@ option {
   font-size: 0.8rem;
 }
 
-.btn-search {
+.btn {
   border-radius: 8px;
   outline: none;
   border: none;
-  background: #2e2d33;
   color: white;
   padding: 15px;
   font-weight: 600;
@@ -100,6 +99,10 @@ option {
   margin-right: 20px;
 }
 
+.btn-search {
+  background: #2e2d33;
+}
+
 .btn-search:hover {
   border: 2px solid #363539;
   color: white;
@@ -107,15 +110,6 @@ option {
 }
 
 .btn-clean {
-  border-radius: 8px;
-  outline: none;
-  border: none;
-  color: white;
-  padding: 15px;
-  font-weight: 600;
-  border: 2px solid transparent;
-  cursor: pointer;
-  box-shadow: 0px 0px 10px #3a3941;
   background: @warren-blue;
 }
 
@@ -123,4 +117,20 @@ option {
   border: 2px solid #429afa;
   color: white;
   background: #429afa;
+}
+
+@media @mobile {
+  .btn {
+    padding: 10px;
+    height: 50px;
+  }
+  .filter-body {
+    display: flex;
+    margin-top: 0px;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+  }
 }
