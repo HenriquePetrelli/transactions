@@ -1,0 +1,26 @@
+<section>
+    <div class="filter-body">
+
+        <div class="select filter-option">
+            <select [(ngModel)]="filterOption" name="slct" id="slct">
+                <option value="0">Nome</option>
+                <option value="1">Status</option>
+            </select>
+        </div>
+
+        <input placeholder="Digite o título" *ngIf="filterOption == '0'" [(ngModel)]="transactionName"
+            class="input filter-text" />
+
+
+        <div class="select filter-text" *ngIf="filterOption == '1'">
+            <select [(ngModel)]="transactionStatus" name="slct" id="slct">
+                <option value="1">Criado</option>
+                <option value="2">Precessando</option>
+                <option value="3">Concluído</option>
+            </select>
+        </div>
+
+        <button (click)="btnFilterTransactions()" class="btn-search">Pesquisar</button>
+
+    </div>
+</section>
