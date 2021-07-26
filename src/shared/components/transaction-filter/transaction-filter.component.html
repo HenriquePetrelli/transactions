@@ -14,13 +14,14 @@
 
         <div class="select filter-text" *ngIf="filterOption == '1'">
             <select [(ngModel)]="transactionStatus" name="slct" id="slct">
-                <option value="1">Criado</option>
-                <option value="2">Precessando</option>
-                <option value="3">Concluído</option>
+                <option value="created">Criado</option>
+                <option value="processing">Precessando</option>
+                <option value="processed">Concluído</option>
             </select>
         </div>
 
         <button (click)="btnFilterTransactions()" class="btn-search">Pesquisar</button>
+        <button (click)="btnCleanFilters()" class="btn-clean">Limpar Filtros</button>
 
     </div>
 </section>
