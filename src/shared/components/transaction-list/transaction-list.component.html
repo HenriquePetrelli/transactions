@@ -1,3 +1,5 @@
+<app-transaction-filter></app-transaction-filter>
+
 <section>
   <div class="transaction-table-header">
     <table>
@@ -20,7 +22,7 @@
     </table>
   </div>
   <div class="transaction-table-content">
-    <table>
+    <table id="transaction-table">
       <tbody>
         <tr *ngFor="let transaction of transactions" (click)="getTransactionDetails(transaction.id)"
           [ngClass]="{'processed-text': transaction.status === 'processed', 'processing-text' : transaction.status === 'processing' , 'created-text' : transaction.status === 'created'}">
