@@ -8,6 +8,7 @@ import { TransactionListComponent } from '../shared/components/transaction-list/
 import { TransactionDetailsComponent } from '../shared/components/transaction-details/transaction-details.component';
 import { TransactionFilterComponent } from 'src/shared/components/transaction-filter/transaction-filter.component';
 import { FormsModule } from '@angular/forms';
+import { ToastComponent } from '../shared/components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     TransactionListComponent,
     TransactionDetailsComponent,
-    TransactionFilterComponent
+    TransactionFilterComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

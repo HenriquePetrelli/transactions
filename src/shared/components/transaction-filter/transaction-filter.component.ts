@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TransactionListComponent } from '../transaction-list/transaction-list.component';
 import * as $ from 'jquery';
 import { Transaction } from 'src/shared/interfaces/transaction';
-import { Helper } from 'src/shared/utils/enums/helpers';
+import { Helper } from 'src/shared/utils/helper';
 
 @Component({
   selector: 'app-transaction-filter',
@@ -22,9 +22,12 @@ export class TransactionFilterComponent implements OnInit {
   }
 
   ngOnInit(): void { }
+
   async reloadTransactions() {
     await this.btnCleanFilters();
+    this.helper.showToast("",10000);
   }
+
   async btnFilterTransactions() {
     await this.transactionListComponent.getTransactionList();
     this.transactionFilter = [];

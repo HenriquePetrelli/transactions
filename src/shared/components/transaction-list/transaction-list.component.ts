@@ -12,7 +12,6 @@ import { TransactionService } from 'src/shared/services/transaction.service';
 
 export class TransactionListComponent implements OnInit {
   transactions: any;
-  enumStatus: any;
   bodyText!: string;
   transactionDetail: Transaction = {};
 
@@ -20,7 +19,6 @@ export class TransactionListComponent implements OnInit {
     if (!this.transactionDetail) {
       this.closeModal("modal");
     }
-    // this.enumStatus = Status;
   }
 
   async ngOnInit(): Promise<void> {
