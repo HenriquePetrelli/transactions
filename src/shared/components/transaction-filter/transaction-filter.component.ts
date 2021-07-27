@@ -2,23 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { TransactionListComponent } from '../transaction-list/transaction-list.component';
 import * as $ from 'jquery';
 import { Transaction } from 'src/shared/interfaces/transaction';
+import { Helper } from 'src/shared/utils/enums/helpers';
 
 @Component({
   selector: 'app-transaction-filter',
   templateUrl: './transaction-filter.component.html',
   styleUrls: ['./transaction-filter.component.less'],
 })
+
 export class TransactionFilterComponent implements OnInit {
   filterOption: any;
   transactionStatus: any;
   transactionName: string;
   transactionFilter: Transaction[] = [];
-  constructor(private transactionListComponent: TransactionListComponent) {
+  disabledFilter: boolean = false;
+
+  constructor(private transactionListComponent: TransactionListComponent, private helper: Helper) {
     this.transactionName = '';
   }
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void { }
+  async reloadTransactions() {
+    await this.btnCleanFilters();
+  }
   async btnFilterTransactions() {
     await this.transactionListComponent.getTransactionList();
     this.transactionFilter = [];
@@ -35,10 +41,17 @@ export class TransactionFilterComponent implements OnInit {
     }
   }
 
+  disableFilter(isDisabled: number) {
+    this.disabledFilter = isDisabled == 1 ? true : false;
+    let element = document.getElementById("transaction-list");
+    if (element)
+      element.style.marginTop = isDisabled == 0 ? "40px" : "160px";
+  }
+
   async FilterTransactionsByName() {
     await this.transactionListComponent.transactions.filter(
       async (transaction: Transaction) => {
-        if (transaction.title == this.transactionName)
+        if (this.helper.removeAccents(transaction.title)?.toUpperCase() == this.transactionName.trim().toUpperCase())
           await this.transactionFilter.push(transaction);
       }
     );

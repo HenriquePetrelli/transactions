@@ -2,9 +2,8 @@
 
 .filter-body {
   display: flex;
-  margin-top: 120px;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
   align-content: center;
@@ -15,26 +14,32 @@
 }
 
 .filter-text {
-  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.filter-label {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  font-size: 1.2rem;
+  margin-top: 100px;
 }
 
 select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
   appearance: none;
   outline: 0;
   box-shadow: none;
   border: 0;
-
   flex: 1;
+  background: #2e2d33;
   padding: 0 0.5em;
-  color: #2e2d33;
+  color: white;
+  border-radius: 8px;
   cursor: pointer;
 }
 
 select:hover {
-  color: #2e2d33;
+  background: #2e2d33;
   border-radius: 8px;
 }
 select::-ms-expand {
@@ -46,15 +51,19 @@ select::-ms-expand {
   width: 10em;
   height: 3em;
   line-height: 3;
-  border-radius: 0px;
+  border-radius: 8px;
   border: 0;
+  background: #2e2d33;
   border: 2px solid transparent;
-  border-bottom: 2px solid @warren-third;
+  color: white;
+  box-shadow: 0px 0px 10px #3a3941;
 }
 
 .select:hover {
   border-radius: 8px;
-  border: 2px solid @warren-third;
+  background: #2e2d33;
+  color: white;
+  border-bottom: 0;
 }
 
 .select::after {
@@ -75,7 +84,7 @@ option {
   background: #2e2d33;
   color: white;
   padding: 10px;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .input {
@@ -83,14 +92,18 @@ option {
   outline: none;
   border-bottom: 2px solid #2e2d33;
   padding-left: 10px;
-  font-size: 0.8rem;
+  font-size: 1rem;
+  margin-top: 20px;
+  width: 10em;
+  padding-bottom: 10px;
+  font-weight: 600; 
+  color: #2e2d33;
 }
 
-.btn-search {
+.btn {
   border-radius: 8px;
   outline: none;
   border: none;
-  background: #2e2d33;
   color: white;
   padding: 15px;
   font-weight: 600;
@@ -100,6 +113,10 @@ option {
   margin-right: 20px;
 }
 
+.btn-search {
+  background: #2e2d33;
+}
+
 .btn-search:hover {
   border: 2px solid #363539;
   color: white;
@@ -107,20 +124,79 @@ option {
 }
 
 .btn-clean {
-  border-radius: 8px;
-  outline: none;
-  border: none;
-  color: white;
-  padding: 15px;
-  font-weight: 600;
-  border: 2px solid transparent;
-  cursor: pointer;
-  box-shadow: 0px 0px 10px #3a3941;
-  background: @warren-blue;
+  color: #545454;
+  background: #f1f1f1;
 }
 
 .btn-clean:hover {
-  border: 2px solid #429afa;
-  color: white;
-  background: #429afa;
+  border: 2px solid #f6f6f6;
+  background: #f6f6f6;
+}
+
+.icon-navbar {
+  position: fixed;
+  top: 14px;
+  height: 35px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.icon-filter {
+  left: calc(100% - 120px);
+}
+
+.icon-reload {
+  right: 10px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media @mobile {
+  .btn {
+    padding: 10px;
+    height: 50px;
+    margin: 10px 20px;
+  }
+
+  .filter-body {
+    display: flex;
+    margin-top: 0px;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+  }
+
+  .filter-content {
+    display: flex;
+    margin: 10px 20px;
+    justify-content: center;
+  }
+
+  .filter-option {
+    margin-right: 10px;
+  }
+
+  .filter-text {
+    margin-right: 0px;
+    margin-left: 10px;
+    margin-top: 0px;
+  }
+
+  .filter-label {
+    margin-top: 80px;
+    margin-bottom: 10px;
+  }
+
+  .input {
+    padding-bottom: 0px;
+  }
+
+  .icon-filter {
+    left: 10px;
+  }
 }

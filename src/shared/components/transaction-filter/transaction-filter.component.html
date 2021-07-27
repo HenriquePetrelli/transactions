@@ -1,27 +1,35 @@
 <section>
-    <div class="filter-body">
+    <img class="icon-navbar icon-filter" *ngIf="!disabledFilter" (click)="disableFilter(1)"
+        src="../../../assets/imgs/icons/filter.svg" />
+    <img class="icon-navbar icon-filter" *ngIf="disabledFilter" (click)="disableFilter(0)"
+        src="../../../assets/imgs/icons/filter-disabled.svg" />
+    <img (click)="reloadTransactions()" class="icon-navbar icon-reload" src="../../../assets/imgs/icons/refresh.png" />
+    <div class="filter-label" *ngIf="!disabledFilter">
+        <h4>Selecione as opções de filtro</h4>
+    </div>
+    <div class="filter-body" *ngIf="!disabledFilter">
+        <div class="filter-content">
+            <div class="select filter-option">
+                <select [(ngModel)]="filterOption" name="slct" id="slct">
+                    <option value="0">Nome</option>
+                    <option value="1">Status</option>
+                </select>
+            </div>
 
-        <div class="select filter-option">
-            <select [(ngModel)]="filterOption" name="slct" id="slct">
-                <option value="0">Nome</option>
-                <option value="1">Status</option>
-            </select>
+            <input placeholder="Digite o título" *ngIf="filterOption == '0' && !disabledFilter" [(ngModel)]="transactionName"
+                class="input filter-text" />
+
+            <div class="select filter-text" *ngIf="filterOption == '1' && !disabledFilter">
+                <select [(ngModel)]="transactionStatus" name="slct" id="slct">
+                    <option value="created">Criado</option>
+                    <option value="processing">Precessando</option>
+                    <option value="processed">Concluído</option>
+                </select>
+            </div>
         </div>
 
-        <input placeholder="Digite o título" *ngIf="filterOption == '0'" [(ngModel)]="transactionName"
-            class="input filter-text" />
-
-
-        <div class="select filter-text" *ngIf="filterOption == '1'">
-            <select [(ngModel)]="transactionStatus" name="slct" id="slct">
-                <option value="created">Criado</option>
-                <option value="processing">Precessando</option>
-                <option value="processed">Concluído</option>
-            </select>
-        </div>
-
-        <button (click)="btnFilterTransactions()" class="btn-search">Pesquisar</button>
-        <button (click)="btnCleanFilters()" class="btn-clean">Limpar Filtros</button>
+        <button (click)="btnFilterTransactions()" class="btn btn-search">Pesquisar</button>
+        <button (click)="btnCleanFilters()" class="btn btn-clean">Limpar Filtros</button>
 
     </div>
 </section>
