@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'transactions';
-  showToast: Boolean = true;
 
   constructor() {}
 
