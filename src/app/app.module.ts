@@ -8,6 +8,8 @@ import { TransactionListComponent } from '../shared/components/transaction-list/
 import { TransactionDetailsComponent } from '../shared/components/transaction-details/transaction-details.component';
 import { TransactionFilterComponent } from 'src/shared/components/transaction-filter/transaction-filter.component';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -15,14 +17,16 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     TransactionListComponent,
     TransactionDetailsComponent,
-    TransactionFilterComponent
+    TransactionFilterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [TransactionListComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerData } from 'src/shared/interfaces/server-data';
 import { Transaction } from 'src/shared/interfaces/transaction';
-import { ModalService } from 'src/shared/services/modal.service';
+import { ModalService } from 'src/shared/services/modal/modal.service';
+import { NotificationService } from 'src/shared/services/notification/notification.service';
 import { TransactionService } from 'src/shared/services/transaction.service';
 
 @Component({
@@ -12,15 +13,13 @@ import { TransactionService } from 'src/shared/services/transaction.service';
 
 export class TransactionListComponent implements OnInit {
   transactions: any;
-  enumStatus: any;
   bodyText!: string;
   transactionDetail: Transaction = {};
 
-  constructor(private transactionService: TransactionService, private modalService: ModalService) {
+  constructor(private transactionService: TransactionService, private modalService: ModalService, private notificationService: NotificationService) {
     if (!this.transactionDetail) {
       this.closeModal("modal");
     }
-    // this.enumStatus = Status;
   }
 
   async ngOnInit(): Promise<void> {
@@ -30,23 +29,28 @@ export class TransactionListComponent implements OnInit {
   async getTransactionList() {
     await this.transactionService.getTransactions("transactions")
       .then((response: ServerData) => {
-        this.transactions = response.data;
+        if (!response.sucesso)
+        return this.notificationService.showError(response.message,"");
 
-        console.log(typeof (this.transactions));
+        this.transactions = response.data;
       }).catch(() => {
-        console.log("ERRO!!");
+        this.notificationService.showError("Ocorreu um erro ao receber as transições!","");
       })
   }
 
   async getTransactionDetails(id: string | undefined) {
-    await this.transactionService.getTransactionsById("transactions/", id)
+    await this.transactionService.getTransactionDetails("transactions/", id)
       .then((response: ServerData) => {
+        if (!response.sucesso)
+        return this.notificationService.showError(response.message,"");
+
         this.transactionDetail = response.data;
         this.openModal("modal");
+        
         if (response.data.status)
           this.fillStepper(response.data.status);
       }).catch(() => {
-        console.log("ERRO!!");
+        this.notificationService.showError("Ocorreu um erro ao receber os detalhes da transição!","");
       })
   }
 
