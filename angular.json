@@ -31,7 +31,8 @@
               "src/assets/imgs"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },

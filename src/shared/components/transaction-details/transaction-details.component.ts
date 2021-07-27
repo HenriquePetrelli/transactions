@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
-import { ModalService } from 'src/shared/services/modal.service';
+import { ModalService } from 'src/shared/services/modal/modal.service';
 
 @Component({
   selector: 'app-transaction-details',

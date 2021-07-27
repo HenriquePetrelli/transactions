@@ -3,6 +3,8 @@ import { TransactionListComponent } from '../transaction-list/transaction-list.c
 import * as $ from 'jquery';
 import { Transaction } from 'src/shared/interfaces/transaction';
 import { Helper } from 'src/shared/utils/helper';
+import { NotificationService } from 'src/shared/services/notification/notification.service';
+import { TransactionService } from 'src/shared/services/transaction.service';
 
 @Component({
   selector: 'app-transaction-filter',
@@ -17,7 +19,8 @@ export class TransactionFilterComponent implements OnInit {
   transactionFilter: Transaction[] = [];
   disabledFilter: boolean = false;
 
-  constructor(private transactionListComponent: TransactionListComponent, private helper: Helper) {
+  constructor(private transactionListComponent: TransactionListComponent, private helper: Helper, private notificationService : NotificationService,
+    private transactionService: TransactionService) {
     this.transactionName = '';
   }
 
@@ -25,7 +28,6 @@ export class TransactionFilterComponent implements OnInit {
 
   async reloadTransactions() {
     await this.btnCleanFilters();
-    this.helper.showToast("",10000);
   }
 
   async btnFilterTransactions() {
@@ -35,11 +37,12 @@ export class TransactionFilterComponent implements OnInit {
     if (isValid) {
       if (this.filterOption == '0') {
         this.transactionStatus = null;
-        await this.FilterTransactionsByName();
+        await this.filterTransactionsByName();
       } else {
         this.transactionName = "";
-        await this.FilterTransactionsByStatus();
+        await this.filterTransactionsByStatus();
       }
+      this.notificationService.showSuccess("Filtros aplicados com sucesso!","");
       this.transactionListComponent.transactions = this.transactionFilter;
     }
   }
@@ -51,7 +54,7 @@ export class TransactionFilterComponent implements OnInit {
       element.style.marginTop = isDisabled == 0 ? "40px" : "160px";
   }
 
-  async FilterTransactionsByName() {
+  async filterTransactionsByName() {
     await this.transactionListComponent.transactions.filter(
       async (transaction: Transaction) => {
         if (this.helper.removeAccents(transaction.title)?.toUpperCase() == this.transactionName.trim().toUpperCase())
@@ -60,7 +63,7 @@ export class TransactionFilterComponent implements OnInit {
     );
   }
 
-  async FilterTransactionsByStatus() {
+  async filterTransactionsByStatus() {
     await this.transactionListComponent.transactions.filter(
       async (transaction: Transaction) => {
         if (transaction.status == this.transactionStatus)
@@ -74,11 +77,12 @@ export class TransactionFilterComponent implements OnInit {
     this.filterOption = null;
     this.transactionName = "";
     this.transactionStatus = null;
+    this.notificationService.showSuccess("Filtros resetados com sucesso!","");
   }
 
   validateForm(): boolean | undefined {
     if (!this.filterOption) {
-      console.log('NAO TEM OPCAO DO FILTRO');
+      this.notificationService.showError("Selecione uma opção de filtro","");
       return false;
     } else {
       if (this.filterOption == '0') {
@@ -91,10 +95,10 @@ export class TransactionFilterComponent implements OnInit {
 
   validateTransactionName() {
     if (!this.transactionName) {
-      console.log('NAO TEM NOME');
+      this.notificationService.showError("Preencha o campo título!","");
       return false;
     } else if (this.transactionName.length < 3) {
-      console.log('O filtro deve possuir no mínimo 3 caracteres!');
+      this.notificationService.showError("O campo título deve possuir no mínimo 3 caracteres!","");
       return false;
     }
     return true;
@@ -102,7 +106,7 @@ export class TransactionFilterComponent implements OnInit {
 
   validateTransactionStatus() {
     if (!this.transactionStatus) {
-      console.log('NAO TEM STATUS');
+       this.notificationService.showError("Selecione um status para o filtro!","");
       return false;
     }
     return true;
