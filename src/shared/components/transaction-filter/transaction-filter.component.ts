@@ -5,6 +5,7 @@ import { Transaction } from 'src/shared/interfaces/transaction';
 import { Helper } from 'src/shared/utils/helper';
 import { NotificationService } from 'src/shared/services/notification/notification.service';
 import { TransactionService } from 'src/shared/services/transaction.service';
+import { LoadingService } from 'src/shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-transaction-filter',
@@ -20,7 +21,7 @@ export class TransactionFilterComponent implements OnInit {
   disabledFilter: boolean = false;
 
   constructor(private transactionListComponent: TransactionListComponent, private helper: Helper, private notificationService : NotificationService,
-    private transactionService: TransactionService) {
+    private transactionService: TransactionService, private loadingService: LoadingService) {
     this.transactionName = '';
   }
 
@@ -31,18 +32,28 @@ export class TransactionFilterComponent implements OnInit {
   }
 
   async btnFilterTransactions() {
+    this.loadingService.showLoading();
     await this.transactionListComponent.getTransactionList();
+    this.loadingService.hideLoading();
     this.transactionFilter = [];
     let isValid = await this.validateForm();
     if (isValid) {
       if (this.filterOption == '0') {
         this.transactionStatus = null;
+        this.loadingService.showLoading();
         await this.filterTransactionsByName();
+        this.loadingService.hideLoading();
       } else {
         this.transactionName = "";
+        this.loadingService.showLoading();
         await this.filterTransactionsByStatus();
+        this.loadingService.hideLoading();
       }
       this.notificationService.showSuccess("Filtros aplicados com sucesso!","");
+      if (this.transactionFilter.length == 0) {
+      this.notificationService.showError("Não foi encontrada nenhuma transação!","");
+      return;
+    }
       this.transactionListComponent.transactions = this.transactionFilter;
     }
   }
@@ -73,27 +84,29 @@ export class TransactionFilterComponent implements OnInit {
   }
 
   async btnCleanFilters() {
+    this.loadingService.showLoading();
     await this.transactionListComponent.getTransactionList();
+    this.loadingService.hideLoading();
     this.filterOption = null;
     this.transactionName = "";
     this.transactionStatus = null;
     this.notificationService.showSuccess("Filtros resetados com sucesso!","");
   }
 
-  validateForm(): boolean | undefined {
+  async validateForm() {
     if (!this.filterOption) {
       this.notificationService.showError("Selecione uma opção de filtro","");
       return false;
     } else {
       if (this.filterOption == '0') {
-        return this.validateTransactionName();
+        return await this.validateTransactionName();
       } else {
-        return this.validateTransactionStatus();
+        return await this.validateTransactionStatus();
       }
     }
   }
 
-  validateTransactionName() {
+  async validateTransactionName() {
     if (!this.transactionName) {
       this.notificationService.showError("Preencha o campo título!","");
       return false;

@@ -10,6 +10,7 @@ import { TransactionFilterComponent } from 'src/shared/components/transaction-fi
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { LoadingComponent } from '../shared/components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
     TransactionListComponent,
     TransactionDetailsComponent,
     TransactionFilterComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
