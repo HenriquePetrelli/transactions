@@ -18,7 +18,7 @@ table {
 .close-btn {
   right: 35%;
   height: 25px;
-  margin-top: 4px;
+  margin-top: 8px;
   position: absolute;
 }
 
@@ -39,7 +39,7 @@ table {
 }
 
 .transaction-table-content {
-  height: 400px;
+  height: 350px;
   overflow-x: auto;
   margin-top: 0px;
   border: 3px solid @warren-secondary;
@@ -50,6 +50,11 @@ table {
 tr:nth-child(even) {
   background-color: #f2f2f2;
   cursor: pointer;
+}
+
+.transaction-table-title:hover {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 th {
@@ -71,7 +76,7 @@ td {
 }
 
 section {
-  margin: 35px 150px 0px 150px;
+  margin: 40px 150px 0px 150px;
   border-radius: 8px;
   box-shadow: 0px 0px 10px #3a3941;
 }
@@ -189,7 +194,8 @@ section {
   position: relative;
   display: flex;
   justify-content: center;
-  width: calc((100%) / 3);
+  width: calc(100% / 0.3);
+  padding: 5px;
   height: auto;
 }
 
@@ -220,9 +226,27 @@ section {
 
 @media @mobile {
   section {
-    margin: 35px 5px 0px 5px;
+    margin: 35px 10px 0px 10px;
   }
+
   .transaction-table-content {
     height: 284px;
+  }
+
+  td {
+    font-size: 0.7rem;
+    padding: 5px 15px;
+  }
+
+  .td-descrioption {
+    padding-left: 20px;
+  }
+
+  .td-title {
+    padding: 10px 5px;
+  }
+
+  .close-btn {
+    right: 10%;
   }
 }
