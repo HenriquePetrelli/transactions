@@ -50,11 +50,11 @@ export class TransactionFilterComponent implements OnInit {
         await this.filterTransactionsByStatus();
         this.loadingService.hideLoading();
       }
-      this.notificationService.showSuccess("Filtros aplicados com sucesso!","");
       if (this.transactionFilter.length == 0) {
-      this.notificationService.showError("Não foi encontrada nenhuma transação!","");
-      return;
-    }
+        this.notificationService.showError("Não foi encontrada nenhuma transação!","");
+        return;
+      }
+      this.notificationService.showSuccess("Filtros aplicados com sucesso!","");
       this.transactionListComponent.transactions = this.transactionFilter;
     }
   }

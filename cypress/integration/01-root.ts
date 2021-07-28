@@ -7,9 +7,11 @@ describe('App', () => {
     //Desktop
     cy.viewport(1124, 720);
 
-    //Verifica se aplicativo inicializou no index
+    //Inicializa aplicação pelo index
     cy.visit('/');
   });
+
+  //Verifica se titulo da aplicação está igual ao informado
   it('Correct title', () => {
     cy.title().should('equal', 'Transactions');
   });
