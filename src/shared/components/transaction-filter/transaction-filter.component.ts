@@ -27,8 +27,9 @@ export class TransactionFilterComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  async reloadTransactions() {
-    await this.btnCleanFilters();
+  async btnReloadTransactions() {
+    await this.cleanFilters();
+    this.notificationService.showSuccess("Transações atualizadas com sucesso!","");
   }
 
   async btnFilterTransactions() {
@@ -84,18 +85,26 @@ export class TransactionFilterComponent implements OnInit {
   }
 
   async btnCleanFilters() {
-    this.loadingService.showLoading();
-    await this.transactionListComponent.getTransactionList();
-    this.loadingService.hideLoading();
+    await this.cleanFilters();
+    this.notificationService.showSuccess("Filtros resetados com sucesso!","");
+  }
+
+  async cleanFilters() {
+    await this.reloadTransactions();
     this.filterOption = null;
     this.transactionName = "";
     this.transactionStatus = null;
-    this.notificationService.showSuccess("Filtros resetados com sucesso!","");
+  }
+
+  async reloadTransactions() {
+    this.loadingService.showLoading();
+    await this.transactionListComponent.getTransactionList();
+    this.loadingService.hideLoading();
   }
 
   async validateForm() {
     if (!this.filterOption) {
-      this.notificationService.showError("Selecione uma opção de filtro","");
+      this.notificationService.showInfo("Selecione uma opção de filtro","");
       return false;
     } else {
       if (this.filterOption == '0') {

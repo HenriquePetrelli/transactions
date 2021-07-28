@@ -3,7 +3,7 @@
         src="../../../assets/imgs/icons/filter.svg" />
     <img class="icon-navbar icon-filter" *ngIf="disabledFilter" (click)="disableFilter(0)"
         src="../../../assets/imgs/icons/filter-disabled.svg" />
-    <img (click)="reloadTransactions()" class="icon-navbar icon-reload" src="../../../assets/imgs/icons/refresh.png" />
+    <img (click)="btnReloadTransactions()" class="icon-navbar icon-reload" src="../../../assets/imgs/icons/refresh.png" />
     <div class="filter-label" *ngIf="!disabledFilter">
         <h4>Selecione as opções de filtro</h4>
     </div>
