@@ -6,6 +6,21 @@
                     <img class="logo" src="../../assets/imgs/logo/warren-text-white.svg"/>
                 </a>
             </li>
+            <li class="country">
+                
+                <div class="dropdown">
+                    <img class="img-dropdown" *ngIf="isEnLanguage == '0'" src="../../../assets/imgs/icons/country/brasil-rounded.png" alt="Português"/>
+                    <img class="img-dropdown" *ngIf="isEnLanguage == '1'" src="../../../assets/imgs/icons/country/estados-unidos-rounded.png" alt="English"/>
+                    <div class="dropdown-content">
+                        <div (click)="setCountry('0')" *ngIf="isEnLanguage == '1'">
+                            <img class="img-option-dropdown" src="../../../assets/imgs/icons/country/brasil.png" alt="Português"/>
+                        </div>
+                        <div (click)="setCountry('1')" *ngIf="isEnLanguage == '0'">
+                            <img class="img-option-dropdown" src="../../../assets/imgs/icons/country/estados-unidos.png" alt="English"/>
+                        </div>
+                    </div>
+                  </div>
+            </li>
         </ul>
     </nav>
 </section>

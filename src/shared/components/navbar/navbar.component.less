@@ -1,9 +1,5 @@
 @import url("../../../assets/variables/variables.less");
 
-header {
-  margin-bottom: 85px;
-}
-
 .nav-bar {
   background-color: @warren-secondary;
   align-items: center;
@@ -19,12 +15,53 @@ header {
   justify-content: center !important;
   z-index: 1;
 
-  .logo {
+  ul {
+    list-style: none;
+  }
+
+  li .logo {
     height: 40px;
   }
 
-  ul {
-    list-style: none;
+  li.country {
+    position: absolute;
+    left: 12px;
+    top: 8px;
+
+    .dropdown {
+      position: absolute;
+      display: inline-block;
+
+      .img-dropdown {
+        position: absolute;
+        top: 6px;
+        height: 35px;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.3);
+        min-width: 91px;
+        box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+        z-index: 1;
+        height: 35px;
+        border-radius: 8px;
+        top: 6px;
+
+        .img-option-dropdown {
+          position: absolute;
+          top: -8px;
+          height: 50px;
+          left: 45px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
   }
 }
 
