@@ -5,6 +5,7 @@ import { LoadingService } from 'src/shared/services/loading/loading.service';
 import { ModalService } from 'src/shared/services/modal/modal.service';
 import { NotificationService } from 'src/shared/services/notification/notification.service';
 import { TransactionService } from 'src/shared/services/transaction.service';
+import { Helper } from 'src/shared/utils/helper';
 
 @Component({
   selector: 'app-transaction-list',
@@ -13,59 +14,80 @@ import { TransactionService } from 'src/shared/services/transaction.service';
 })
 
 export class TransactionListComponent implements OnInit {
-  transactions: any;
   bodyText!: string;
+  lSLanguage: string | null;
+  transactions: any;
   transactionDetail: Transaction = {};
 
   constructor(private transactionService: TransactionService,
-     private modalService: ModalService,
-      private notificationService: NotificationService,
-      private loadingService: LoadingService,) {
+    private modalService: ModalService,
+    private notificationService: NotificationService,
+    private loadingService: LoadingService,
+    private helper: Helper) {
     if (!this.transactionDetail) {
       this.closeModal("modal");
     }
+    this.lSLanguage = "0";
   }
 
   async ngOnInit(): Promise<void> {
+    await this.verifyLocalStorageLanguage();
+  }
+
+  async verifyLocalStorageLanguage() {
+    this.loadingService.showLoading();
+    this.lSLanguage = localStorage.getItem('country');
+    this.loadingService.hideLoading();
     await this.getTransactionList();
   }
 
   async getTransactionList() {
-    this.loadingService.showLoading();
-    await this.transactionService.getTransactions("transactions")
-      .then((response: ServerData) => {
-        if (!response.sucesso) {
-          this.loadingService.hideLoading();
-        return this.notificationService.showError(response.message,"");
-        }
+    if (this.lSLanguage) {
+      let endpoint = this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions");
+      this.loadingService.showLoading();
+      await this.transactionService.getTransactions(endpoint)
+        .then((response: ServerData) => {
+          if (!response.sucesso) {
+            this.loadingService.hideLoading();
+            return this.notificationService.showError(response.message, "");
+          }
+          this.transactions = response.data;
+          if (this.lSLanguage == "1") {
+            this.convertRealForDollar(this.transactions);
+          }
 
-        this.transactions = response.data;
-        this.loadingService.hideLoading();
-      }).catch(() => {
-        this.loadingService.hideLoading();
-        this.notificationService.showError("Ocorreu um erro ao receber as transições!","");
-      })
+          this.loadingService.hideLoading();
+        }).catch(() => {
+          this.loadingService.hideLoading();
+          this.notificationService.showError("Ocorreu um erro ao receber as transições!", "");
+        })
+    }
   }
 
   async getTransactionDetails(id: string | undefined) {
     this.loadingService.showLoading();
-    await this.transactionService.getTransactionDetails("transactions/", id)
-      .then((response: ServerData) => {
-        if (!response.sucesso) {
-          this.loadingService.hideLoading();
-        return this.notificationService.showError(response.message,"");
-        }
+    if (this.lSLanguage) {
+      let endpoint = this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions")
+      await this.transactionService.getTransactionDetails(endpoint, id)
+        .then((response: ServerData) => {
+          if (!response.sucesso) {
+            this.loadingService.hideLoading();
+            return this.notificationService.showError(response.message, "");
+          }
 
-        this.loadingService.hideLoading();
-        this.transactionDetail = response.data;
-        this.openModal("modal");
-        
-        if (response.data.status)
-          this.fillStep(response.data.status);
-      }).catch(() => {
-        this.loadingService.hideLoading();
-        this.notificationService.showError("Ocorreu um erro ao receber os detalhes da transição!","");
-      })
+          this.loadingService.hideLoading();
+          this.transactionDetail = response.data;
+          this.openModal("modal");
+
+          if (response.data.status)
+            this.fillStep(response.data.status);
+        }).catch(() => {
+          this.loadingService.hideLoading();
+          let errorMsg = this.lSLanguage == '1' ?
+            'There was an error receiving the transition details!' : 'Ocorreu um erro ao receber os detalhes da transição!';
+          this.notificationService.showError(errorMsg, "");
+        })
+    }
   }
 
   async fillStep(status: string) {
@@ -109,6 +131,12 @@ export class TransactionListComponent implements OnInit {
           break;
       }
     }
+  }
+
+  convertRealForDollar(transactions: Transaction[]) {
+    transactions.forEach((transaction: any) => {
+      transaction.amount = this.helper.convertRealForDollar(transaction.amount);
+    });
   }
 
   openModal(id: string) {

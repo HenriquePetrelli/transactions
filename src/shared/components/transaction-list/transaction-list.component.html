@@ -5,16 +5,25 @@
     <table>
       <thead>
         <tr class="transaction-table-title">
-          <th>
+          <th *ngIf="lSLanguage == '1'">
+            Title
+          </th>
+          <th *ngIf="lSLanguage != '1'">
             Título
           </th>
-          <th>
+          <th *ngIf="lSLanguage == '1'">
+            Description
+          </th>
+          <th *ngIf="lSLanguage != '1'">
             Descrição
           </th>
           <th>
             Status
           </th>
-          <th>
+          <th *ngIf="lSLanguage == '1'">
+            Value
+          </th>
+          <th *ngIf="lSLanguage != '1'">
             Valor
           </th>
         </tr>
@@ -24,8 +33,10 @@
   <div class="transaction-table-content">
     <table id="transaction-table">
       <tbody>
-        <tr *ngFor="let transaction of transactions" (click)="getTransactionDetails(transaction.id)"
-          [ngClass]="{'processed-text': transaction.status === 'processed', 'processing-text' : transaction.status === 'processing' , 'created-text' : transaction.status === 'created'}">
+        <tr *ngFor="let transaction of transactions" (click)="getTransactionDetails(transaction.id)" 
+        [ngClass]="{'processed-text': transaction.status === 'processed' || transaction.status === 'processado',
+           'processing-text' : transaction.status === 'processing'  || transaction.status === 'em processamento',
+            'created-text' : transaction.status === 'created' || transaction.status === 'criado'}">
           <td class="td-title">
             {{transaction.title}}
           </td>
@@ -33,11 +44,16 @@
             {{transaction.description}}
           </td>
           <td>
-            <p [ngClass]="{'processed-status-text': transaction.status === 'processed', 'processing-status-text' : transaction.status === 'processing' , 'created-status-text' : transaction.status === 'created'}">
-            {{transaction.status}}
-          </p>
+            <p [ngClass]="{'processed-status-text': transaction.status === 'processed',
+               'processing-status-text' : transaction.status === 'processing' ,
+                'created-status-text' : transaction.status === 'created'}">
+              {{transaction.status}}
+            </p>
           </td>
-          <td>
+          <td *ngIf="lSLanguage == '1'">
+            $ {{transaction.amount}}
+          </td>
+          <td *ngIf="lSLanguage != '1'">
             R$ {{transaction.amount}}
           </td>
         </tr>
@@ -52,9 +68,12 @@
 
   <div class="step">
     <div class="circle__step-name">
-      <div class="step-name">Solicitado</div>
-      <div class="step-name">Processando</div>
-      <div class="step-name">Concuído</div>
+      <div class="step-name" *ngIf="lSLanguage != '1'">Solicitado</div>
+      <div class="step-name" *ngIf="lSLanguage == '1'">Requested</div>
+      <div class="step-name"*ngIf="lSLanguage != '1'">Processando</div>
+      <div class="step-name"*ngIf="lSLanguage == '1'">Processing</div>
+      <div class="step-name"*ngIf="lSLanguage != '1'">Concuído</div>
+      <div class="step-name"*ngIf="lSLanguage == '1'">Accomplished</div>
     </div>
     <div class="circle-wrapper">
       <div id="step1" class="circle" data-attr="1"></div>
@@ -66,10 +85,13 @@
   <div class="transaction-data">
     <div>
       <div class="transaction-label">
-        <h4 *ngIf="transactionDetail.status != 'processed'">Transferindo de</h4>
-        <h4 *ngIf="transactionDetail.status == 'processed'">Transferido de</h4>
+        <h4 *ngIf="transactionDetail.status != 'processed' && lSLanguage != '1'">Transferindo de</h4>
+        <h4 *ngIf="transactionDetail.status != 'processed' && lSLanguage == '1'"> Transferring from</h4>
+        <h4 *ngIf="transactionDetail.status == 'processed' && lSLanguage != '1'">Transferido de</h4>
+        <h4 *ngIf="transactionDetail.status == 'processed' && lSLanguage == '1'">Transferred from</h4>
       </div>
-      <hr/>
+      transferring from
+      <hr />
       <div class="transaction-value">
         <p>{{transactionDetail.from}}</p>
         <p>R$ {{transactionDetail.amount}}</p>
@@ -78,9 +100,10 @@
 
     <div>
       <div class="transaction-label">
-        <h4>Para</h4>
+        <h4 *ngIf="lSLanguage != '1'">Para</h4>
+        <h4 *ngIf="lSLanguage == '1'">To</h4>
       </div>
-      <hr/>
+      <hr />
       <div class="transaction-value">
         <p>{{transactionDetail.to}}</p>
         <p>R$ {{transactionDetail.amount}}</p>
