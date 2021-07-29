@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionListComponent } from '../transaction-list/transaction-list.component';
-import * as $ from 'jquery';
 import { Transaction } from 'src/shared/interfaces/transaction';
 import { Helper } from 'src/shared/utils/helper';
 import { NotificationService } from 'src/shared/services/notification/notification.service';
@@ -21,7 +20,7 @@ export class TransactionFilterComponent implements OnInit {
   disabledFilter: boolean = false;
 
   constructor(private transactionListComponent: TransactionListComponent, private helper: Helper, private notificationService : NotificationService,
-    private transactionService: TransactionService, private loadingService: LoadingService) {
+    private loadingService: LoadingService) {
     this.transactionName = '';
   }
 

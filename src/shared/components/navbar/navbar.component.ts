@@ -11,16 +11,17 @@ export class NavbarComponent implements OnInit {
   isEnLanguage: string;
   constructor(private notificationService: NotificationService, private loadingService: LoadingService) {
     this.isEnLanguage = "0";
+    this.verifyLocalStorageLanguage();
   }
 
   ngOnInit(): void {
-    this.verifyLocalStorageLanguage();
   }
 
   async verifyLocalStorageLanguage() {
     await this.loadingService.showLoading();
     let lSLanguage = await localStorage.getItem('country');
     this.isEnLanguage =  lSLanguage? lSLanguage : "0";
+    await localStorage.setItem('country', this.isEnLanguage);
     await this.loadingService.hideLoading();
   }
 

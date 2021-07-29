@@ -13,7 +13,7 @@ export class TransactionService {
   constructor(private notificationService: NotificationService, private helper: Helper) { }
 
   async getTransactions(endpoint: string) {
-    let url = environment.baseUrl + endpoint;
+    let url = this.helper.getUrlApi() + endpoint;
     return await axios.get(url)
       .then((apiResponse: AxiosResponse<Transaction[]>) => {
         let response = this.helper.responseStatus(apiResponse);
