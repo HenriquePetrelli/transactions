@@ -43,7 +43,7 @@ export class TransactionListComponent implements OnInit {
 
   async getTransactionList() {
     if (this.lSLanguage) {
-      let endpoint = this.helper.getTransactionsEnpointByLanguage(this.lSLanguage, "transactions")
+      let endpoint = this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions")
       this.loadingService.showLoading();
       await this.transactionService.getTransactions(endpoint)
         .then((response: ServerData) => {

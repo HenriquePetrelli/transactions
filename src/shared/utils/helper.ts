@@ -31,7 +31,7 @@ export class Helper {
     }
   }
 
-  getTransactionsEnpointByLanguage(language: string, endpoint: string) {
+  getTransactionsEndpointByLanguage(language: string, endpoint: string) {
     switch (language) {
       case "0":
         return "pt-br"
