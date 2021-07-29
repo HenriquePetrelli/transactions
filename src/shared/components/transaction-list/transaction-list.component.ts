@@ -27,7 +27,7 @@ export class TransactionListComponent implements OnInit {
     if (!this.transactionDetail) {
       this.closeModal("modal");
     }
-    this.lSLanguage = "0";
+    this.lSLanguage = "2";
   }
 
   async ngOnInit(): Promise<void> {
@@ -67,7 +67,8 @@ export class TransactionListComponent implements OnInit {
   async getTransactionDetails(id: string | undefined) {
     this.loadingService.showLoading();
     if (this.lSLanguage) {
-      let endpoint = this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions")
+      let endpoint = await this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions")
+      if(endpoint)
       await this.transactionService.getTransactionDetails(endpoint, id)
         .then((response: ServerData) => {
           if (!response.sucesso) {

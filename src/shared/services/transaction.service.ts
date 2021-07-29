@@ -30,6 +30,8 @@ export class TransactionService {
   }
 
   async getTransactionDetails(endpoint: string | null, param: string | undefined) {
+    if(!endpoint)
+    console.log("NAO TEM ENPOINT");
     let url = this.helper.getUrlApi() + endpoint + param;
     return await axios.get(url)
       .then((apiResponse: AxiosResponse<Transaction>) => {

@@ -3,7 +3,6 @@ import { TransactionListComponent } from '../transaction-list/transaction-list.c
 import { Transaction } from 'src/shared/interfaces/transaction';
 import { Helper } from 'src/shared/utils/helper';
 import { NotificationService } from 'src/shared/services/notification/notification.service';
-import { TransactionService } from 'src/shared/services/transaction.service';
 import { LoadingService } from 'src/shared/services/loading/loading.service';
 
 @Component({
@@ -26,7 +25,7 @@ export class TransactionFilterComponent implements OnInit {
     private loadingService: LoadingService
   ) {
     this.transactionName = '';
-    this.lSLanguage = '0';
+    this.lSLanguage = '2';
   }
 
   ngOnInit(): void {
@@ -34,7 +33,7 @@ export class TransactionFilterComponent implements OnInit {
   }
 
   async reloadTransactions() {
-    await this.btnCleanFilters();
+    await this.getTransactionList();
   }
 
   async btnFilterTransactions() {
@@ -72,7 +71,6 @@ export class TransactionFilterComponent implements OnInit {
     } else {
       this.transactionName = '';
       return await this.filterTransactionsByStatus();
-
     }
   }
 
@@ -111,14 +109,18 @@ export class TransactionFilterComponent implements OnInit {
   }
 
   async btnCleanFilters() {
-    this.loadingService.showLoading();
-    await this.transactionListComponent.getTransactionList();
-    this.loadingService.hideLoading();
+    this.getTransactionList();
     this.filterOption = null;
     this.transactionName = '';
     this.transactionStatus = null;
     let successMsg = this.lSLanguage == '1' ? 'Filters reset successfully!' : 'Filtros resetados com sucesso!';
     this.notificationService.showSuccess(successMsg, '');
+  }
+
+  async getTransactionList() {
+    this.loadingService.showLoading();
+    await this.transactionListComponent.getTransactionList();
+    this.loadingService.hideLoading();
   }
 
   async validateForm() {

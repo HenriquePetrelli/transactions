@@ -38,10 +38,10 @@ export class Helper {
       case "1":
         return "en/";
       case "2":
-        return endpoint;
+        return endpoint + "/";
 
       default:
-        return endpoint;
+        return endpoint + "/";
     }
   }
 
