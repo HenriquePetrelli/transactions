@@ -9,8 +9,10 @@ import { NotificationService } from './notification/notification.service';
   providedIn: 'root'
 })
 export class TransactionService {
-
-  constructor(private notificationService: NotificationService, private helper: Helper) { }
+  lSLanguage: string | null;
+  constructor(private notificationService: NotificationService, private helper: Helper) {
+    this.lSLanguage = localStorage.getItem('country');
+  }
 
   async getTransactions(endpoint: string) {
     let url = this.helper.getUrlApi() + endpoint;
@@ -18,21 +20,29 @@ export class TransactionService {
       .then((apiResponse: AxiosResponse<Transaction[]>) => {
         let response = this.helper.responseStatus(apiResponse);
         return response;
-      }).catch(()=> {
-        return this.notificationService.showError("Ocorreu um erro ao receber as transições!","Entre em contato com o administrador");
+      }).catch(() => {
+        let errorBodyMsg = this.lSLanguage == '1' ?
+          'There was an error receiving the transactions!' : 'Ocorreu um erro ao receber as transação!';
+        let errorTitleMsg = this.lSLanguage == '1' ?
+          'Contact the administrator' : 'Entre em contato com o administrador';
+        return this.notificationService.showError(errorBodyMsg, errorTitleMsg);
       })
   }
 
-  async getTransactionDetails(endpoint: string, param: string | undefined) {
-    let url = environment.baseUrl + endpoint + param;
+  async getTransactionDetails(endpoint: string | null, param: string | undefined) {
+    let url = this.helper.getUrlApi() + endpoint + param;
     return await axios.get(url)
       .then((apiResponse: AxiosResponse<Transaction>) => {
         let response = this.helper.responseStatus(apiResponse);
         return response;
-      }).catch(()=> {
-        return this.notificationService.showError("Ocorreu um erro ao receber os detalhes da transição!","Entre em contato com o administrador");
+      }).catch(() => {
+        let errorBodyMsg = this.lSLanguage == '1' ?
+        'There was an error receiving the transaction details!' : 'Ocorreu um erro ao receber as os detalhes da transação!';
+      let errorTitleMsg = this.lSLanguage == '1' ?
+        'Contact the administrator' : 'Entre em contato com o administrador';
+      return this.notificationService.showError(errorBodyMsg, errorTitleMsg);
       })
   }
 
-  
+
 }

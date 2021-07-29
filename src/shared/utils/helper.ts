@@ -13,7 +13,7 @@ export class Helper {
   }
 
   convertRealForDollar(real: number) {
-    let dollar =  real * 5.12;
+    let dollar = real * 5.12;
     return dollar.toFixed(2);
   }
 
@@ -34,9 +34,9 @@ export class Helper {
   getTransactionsEndpointByLanguage(language: string, endpoint: string) {
     switch (language) {
       case "0":
-        return "pt-br"
+        return "pt-br/"
       case "1":
-        return "en";
+        return "en/";
       case "2":
         return endpoint;
 
@@ -46,6 +46,7 @@ export class Helper {
   }
 
   responseStatus(response: any) {
+    let lSLanguage = localStorage.getItem('country');
     switch (response.status) {
       case 200: {
         response.sucesso = true;
@@ -60,7 +61,7 @@ export class Helper {
 
       case 404: {
         response.sucesso = false;
-        response.message = "Verifique a conexão com a internet";
+        response.message = lSLanguage == '1' ? "Check internet connection" : "Verifique a conexão com a internet";
         return response;
       }
 
@@ -78,8 +79,7 @@ export class Helper {
 
       default: {
         response.sucesso = false;
-        response.message =
-          "Ocorreu um erro! Entre em contato com o administrador!";
+        response.message = lSLanguage == '1' ? "An error occurred! Contact the administrator!" : "Ocorreu um erro! Entre em contato com o administrador!";
         return response;
       }
     }

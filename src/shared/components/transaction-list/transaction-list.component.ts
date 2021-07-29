@@ -43,7 +43,7 @@ export class TransactionListComponent implements OnInit {
 
   async getTransactionList() {
     if (this.lSLanguage) {
-      let endpoint = this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions")
+      let endpoint = this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions");
       this.loadingService.showLoading();
       await this.transactionService.getTransactions(endpoint)
         .then((response: ServerData) => {
@@ -66,23 +66,28 @@ export class TransactionListComponent implements OnInit {
 
   async getTransactionDetails(id: string | undefined) {
     this.loadingService.showLoading();
-    await this.transactionService.getTransactionDetails("transactions/", id)
-      .then((response: ServerData) => {
-        if (!response.sucesso) {
+    if (this.lSLanguage) {
+      let endpoint = this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions")
+      await this.transactionService.getTransactionDetails(endpoint, id)
+        .then((response: ServerData) => {
+          if (!response.sucesso) {
+            this.loadingService.hideLoading();
+            return this.notificationService.showError(response.message, "");
+          }
+
           this.loadingService.hideLoading();
-          return this.notificationService.showError(response.message, "");
-        }
+          this.transactionDetail = response.data;
+          this.openModal("modal");
 
-        this.loadingService.hideLoading();
-        this.transactionDetail = response.data;
-        this.openModal("modal");
-
-        if (response.data.status)
-          this.fillStep(response.data.status);
-      }).catch(() => {
-        this.loadingService.hideLoading();
-        this.notificationService.showError("Ocorreu um erro ao receber os detalhes da transição!", "");
-      })
+          if (response.data.status)
+            this.fillStep(response.data.status);
+        }).catch(() => {
+          this.loadingService.hideLoading();
+          let errorMsg = this.lSLanguage == '1' ?
+            'There was an error receiving the transition details!' : 'Ocorreu um erro ao receber os detalhes da transição!';
+          this.notificationService.showError(errorMsg, "");
+        })
+    }
   }
 
   async fillStep(status: string) {

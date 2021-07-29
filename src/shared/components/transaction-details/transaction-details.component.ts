@@ -16,10 +16,10 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
     this.element.style.display = 'none';
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     document.body.appendChild(this.element);
     // close modal on background click
-    this.element.addEventListener('click', (el: { target: { className: string; }; }) => {
+    await this.element.addEventListener('click', (el: { target: { className: string; }; }) => {
       if (el.target.className === 'modal') {
         this.close();
       }

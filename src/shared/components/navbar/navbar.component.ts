@@ -18,18 +18,18 @@ export class NavbarComponent implements OnInit {
   }
 
   async verifyLocalStorageLanguage() {
-    await this.loadingService.showLoading();
-    let lSLanguage = await localStorage.getItem('country');
-    this.isEnLanguage =  lSLanguage? lSLanguage : "0";
-    await localStorage.setItem('country', this.isEnLanguage);
-    await this.loadingService.hideLoading();
+    this.loadingService.showLoading();
+    let lSLanguage = localStorage.getItem('country');
+    this.isEnLanguage = lSLanguage ? lSLanguage : "0";
+    localStorage.setItem('country', this.isEnLanguage);
+    this.loadingService.hideLoading();
   }
 
   async setCountry(isEn: string) {
-    await this.loadingService.showLoading();
-    await localStorage.setItem('country', isEn);
+    this.loadingService.showLoading();
+    localStorage.setItem('country', isEn);
     this.isEnLanguage = isEn;
-    await this.loadingService.hideLoading();
+    this.loadingService.hideLoading();
     window.location.href = ('/');
   }
 }

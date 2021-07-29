@@ -46,13 +46,16 @@ export class TransactionFilterComponent implements OnInit {
     if (isValid) {
       this.filterTransactions();
       this.loadingService.hideLoading();
+      let successMsg = this.lSLanguage == '1' ? 'Filters successfully applied!' : 'Filtros aplicados com sucesso!';
       this.notificationService.showSuccess(
-        'Filtros aplicados com sucesso!',
+        successMsg,
         ''
       );
       if (this.transactionFilter.length == 0) {
+        let errorMsg = this.lSLanguage == '1' ?
+          'No transaction found!' : 'Não foi encontrada nenhuma transação!';
         this.notificationService.showError(
-          'Não foi encontrada nenhuma transação!',
+          errorMsg,
           ''
         );
         return;
@@ -65,11 +68,11 @@ export class TransactionFilterComponent implements OnInit {
     if (this.filterOption == '0') {
       this.transactionStatus = null;
       return await this.filterTransactionsByName();
-    
+
     } else {
       this.transactionName = '';
       return await this.filterTransactionsByStatus();
-      
+
     }
   }
 
@@ -101,30 +104,11 @@ export class TransactionFilterComponent implements OnInit {
     await this.transactionListComponent.transactions.filter(
       async (transaction: Transaction) => {
         let transactionStatus = transaction.status;
-        // if (this.lSLanguage == "0")
-        // transactionStatus = await this.returnStatusValue(transaction.status);
         if (transactionStatus == this.transactionStatus)
           this.transactionFilter.push(transaction);
       }
     );
   }
-
-  // async returnStatusValue(status: string | undefined) {
-  //   let statusValue = "";
-  //   switch (status) {
-  //     case 'criado':
-  //       statusValue = "created";
-  //     break;
-  //     case 'em processamento':
-  //       statusValue = "processing";
-  //       break;
-  //     case 'processado':
-  //       statusValue = "processed";
-  //       break;
-     
-  //   }
-  //   return statusValue;
-  // }
 
   async btnCleanFilters() {
     this.loadingService.showLoading();
@@ -133,12 +117,15 @@ export class TransactionFilterComponent implements OnInit {
     this.filterOption = null;
     this.transactionName = '';
     this.transactionStatus = null;
-    this.notificationService.showSuccess('Filtros resetados com sucesso!', '');
+    let successMsg = this.lSLanguage == '1' ? 'Filters reset successfully!' : 'Filtros resetados com sucesso!';
+    this.notificationService.showSuccess(successMsg, '');
   }
 
   async validateForm() {
     if (!this.filterOption) {
-      this.notificationService.showError('Selecione uma opção de filtro', '');
+      let errorMsg = this.lSLanguage == '1' ?
+        'Select a filter option' : 'Selecione uma opção de filtro';
+      this.notificationService.showError(errorMsg, '');
       return false;
     } else {
       if (this.filterOption == '0') {
@@ -151,11 +138,15 @@ export class TransactionFilterComponent implements OnInit {
 
   async validateTransactionName() {
     if (!this.transactionName) {
-      this.notificationService.showError('Preencha o campo título!', '');
+      let errorMsg = this.lSLanguage == '1' ?
+        'Fill in the title field!' : 'Preencha o campo título!';
+      this.notificationService.showError(errorMsg, '');
       return false;
     } else if (this.transactionName.length < 3) {
+      let errorMsg = this.lSLanguage == '1' ?
+      'The title field must be at least 3 characters long!' :  'O campo título deve possuir no mínimo 3 caracteres!';
       this.notificationService.showError(
-        'O campo título deve possuir no mínimo 3 caracteres!',
+        errorMsg,
         ''
       );
       return false;
@@ -165,8 +156,10 @@ export class TransactionFilterComponent implements OnInit {
 
   validateTransactionStatus() {
     if (!this.transactionStatus) {
+      let errorMsg = this.lSLanguage == '1' ?
+      'Please select a status for the filter!' : 'Selecione um status para o filtro!';
       this.notificationService.showError(
-        'Selecione um status para o filtro!',
+        errorMsg,
         ''
       );
       return false;
