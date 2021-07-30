@@ -3,27 +3,32 @@
         <ul>
             <li>
                 <a href="/">
-                    <img class="logo" src="../../assets/imgs/logo/warren-text-white.svg"/>
+                    <img class="logo" src="../../assets/imgs/logo/warren-text-white.svg" />
                 </a>
             </li>
             <li class="country">
-                
+
                 <div class="dropdown">
-                    <img id="dropdown-country" class="img-dropdown" *ngIf="language == '2'" src="../../../assets/imgs/icons/api.png" alt="Api"/>
-                    <img id="dropdown-country" class="img-dropdown" *ngIf="language == '1'" src="../../../assets/imgs/icons/country/estados-unidos-rounded.png" alt="English"/>
-                    <img id="dropdown-country" class="img-dropdown" *ngIf="language == '0'" src="../../../assets/imgs/icons/country/brasil-rounded.png" alt="Português"/>
+                    <img id="dropdown-country" class="img-dropdown" *ngIf="language == '2'"
+                        src="../../../assets/imgs/icons/api.png" alt="Api" />
+                    <img id="dropdown-country" class="img-dropdown" *ngIf="language == '1'"
+                        src="../../../assets/imgs/icons/country/estados-unidos-rounded.png" alt="English" />
+                    <img id="dropdown-country" class="img-dropdown" *ngIf="language == '0'"
+                        src="../../../assets/imgs/icons/country/brasil-rounded.png" alt="Português" />
                     <div class="dropdown-content">
                         <div (click)="setCountry('0')" *ngIf="language != '0'">
-                            <img class="country-option-dropdown" src="../../../assets/imgs/icons/country/brasil.png" alt="Português"/>
+                            <img class="country-option-dropdown" src="../../../assets/imgs/icons/country/brasil.png"
+                                alt="Português" />
                         </div>
                         <div (click)="setCountry('1')" *ngIf="language != '1'">
-                            <img class="country-option-dropdown" src="../../../assets/imgs/icons/country/estados-unidos.png" alt="English"/>
+                            <img class="country-option-dropdown"
+                                src="../../../assets/imgs/icons/country/estados-unidos.png" alt="English" />
                         </div>
                         <div (click)="setCountry('2')" *ngIf="language != '2'">
-                            <img class="api-option-dropdown" src="../../../assets/imgs/icons/api.png" alt="Api"/>
+                            <img class="api-option-dropdown" src="../../../assets/imgs/icons/api.png" alt="Api" />
                         </div>
                     </div>
-                  </div>
+                </div>
             </li>
         </ul>
     </nav>

@@ -1,5 +1,6 @@
 import { Transaction } from "./transaction";
 
+//Interface utilizada para tipar retorno de API
 export interface ServerData {
     data: Transaction;
     status: number;

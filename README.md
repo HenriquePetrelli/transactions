@@ -1,27 +1,110 @@
-# Transactions
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.3.
+<br />
+<p align="center">
 
-## Development server
+  <h3 align="center">Warren Transactions</h3>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Sumário</summary>
+  <ol>
+    <li>
+      <a href="#sobre-o-projeto">Sobre o Projeto</a>
+      <ul>
+        <li><a href="#construído-com">Construído com</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#começando">Começando</a>
+      <ul>
+        <li><a href="#pre-requisitos">Pré Requisitos</a></li>
+        <li><a href="#instalação">Instalação</a></li>
+      </ul>
+    </li>
+    <li><a href="#uso">Uso</a></li>
+      <li><a href="#observation">Observações</a></li>
+      <ul>
+        <li><a href="#Melhor forma para futuras implementações">Melhorias para futuras implementações</a></li>
+      </ul>
+    <li><a href="#Contato">Contato</a></li>
+  </ol>
+</details>
 
-## Code scaffolding
+<!-- SOBRE O PROJETO -->
+## Sobre o projeto
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+O projeto foi criado com o intúito de melhor uma visualização de transações. Os dados vem de uma API fictícia criada pela Warren Brasil.
+Optei por não fazer um layout tão apelativo visualmente e dei mais foco a funcionalidades e lógicas.
 
-## Build
+- É possível filtrar transações pelo nome e seu status.
+- Possui a versão em Português-BR e Inglês com suas respectivas coversões de moedas.
+- Possui layout responsivo, tanto para mobile quanto para desktop.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<!-- CONSTRUIDO COM -->
+### Construído com
 
-## Running unit tests
+- [Angular](https://angular.io/)
+- [Less](https://lesscss.org/)
+- [Axios](https://www.npmjs.com/package/axios)
+- [Mock](https://mockapi.io/)
+- [Cypress](https://www.cypress.io/)
+- [Angular-Toastr](https://www.npmjs.com/package/angular-toastr)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<!-- COMEÇANDO -->
+## Começando
 
-## Running end-to-end tests
+<!-- PRE REQUISITOS -->
+### Pre Requisitos
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
+<!-- INSTALAÇÃO -->
+### Instalação
 
-## Further help
+1. Clone o repósitorio na sua máquina
+   ```sh
+   git clone https://github.com/HenriquePetrelli/transactions.git
+   ```
+2. Instalar pacotes NPM
+   ```sh
+   npm install
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<!-- Uso -->
+## Uso
+
+- Rodando o projeto localmente
+  ```sh
+  ng serve
+  ```
+- Rodando o testes de ponta a ponta
+
+  ```sh
+  npm run cypress:open
+
+  ```
+
+- Acessar Projeto em Produção
+  [Netlify](https://transactions-warren.netlify.app/)
+
+  <!-- OBSERVAÇÃO -->
+## Observação
+* Projeto onde tive primeiro contato com teste de ponta a ponta (e2e), fiz uso do framework Cypress, que possui uma documentação bem organizada e que me ajudou muito no desenvolvimento.
+* Optei por incluir no projeto 2 idiomas, pois a api da Warren Brasil retorna dados com diferentes idiomas no mesmo Json.
+* Apesar de não ser a forma mais correta para uma futura implementação, optei por incluir uma rotas de Mock que criei com as informações traduzidas de acordo com a linguagem passada por parâmetro.
+
+### Melhorias para futuras implementações
+* Criar um enpoint, que chamado passando o parâmetro do idioma selecionado pelo usuário em tela, retornará um Json com as informações tanto de transações como labels, formulários, entre outros elementos usados em tela. Para que com isso seja possível a construção de uma aplicação 100% dinâmica se baseando no idioma.
+
+<!-- CONTATO -->
+## Contato
+
+Henrique Petrelli - henriquepetrelli96@gmail.com
+
+Link do Projeto: [https://github.com/HenriquePetrelli/transactions](https://github.com/HenriquePetrelli/transactions)
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/henrique-petrelli/

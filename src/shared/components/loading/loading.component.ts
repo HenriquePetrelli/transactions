@@ -7,21 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadingComponent implements OnInit {
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.hideLoading();
   }
 
+  //Função para exibir Loading na aplicação
   showLoading() {
     let loadingElement = document.getElementById("loading");
     if (loadingElement)
-    loadingElement.style.display = "block";
+      loadingElement.style.display = "block";
   }
 
+  //Função para esconder Loading na aplicação
   hideLoading() {
-      let loadingElement = document.getElementById("loading");
-      if (loadingElement)
+    let loadingElement = document.getElementById("loading");
+    if (loadingElement)
       loadingElement.style.display = "none";
   }
 }

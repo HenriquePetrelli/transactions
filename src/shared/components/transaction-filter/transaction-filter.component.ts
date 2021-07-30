@@ -36,6 +36,7 @@ export class TransactionFilterComponent implements OnInit {
     await this.getTransactionList();
   }
 
+  // Filtra transações
   async btnFilterTransactions() {
     this.loadingService.showLoading();
     await this.transactionListComponent.getTransactionList();
@@ -60,9 +61,17 @@ export class TransactionFilterComponent implements OnInit {
         return;
       }
       this.transactionListComponent.transactions = this.transactionFilter;
+    } else {
+      let errorMsg = this.lSLanguage == '1' ?
+        'Form is not valid!' : 'Formulário não é válido!';
+      this.notificationService.showError(
+        errorMsg,
+        ''
+      );
     }
   }
 
+  // Filtra de acordo com escolha no select
   async filterTransactions() {
     if (this.filterOption == '0') {
       this.transactionStatus = null;
@@ -74,18 +83,21 @@ export class TransactionFilterComponent implements OnInit {
     }
   }
 
+  //Verifica se possui idioma escolhido no localStorage
   async verifyLocalStorageLanguage() {
     this.loadingService.showLoading();
     this.lSLanguage = localStorage.getItem('country');
     this.loadingService.hideLoading();
   }
 
-  disableFilter(isDisabled: number) {
+  //Botão para esconder filtros para melhor visualização de dados
+  btnDisableFilter(isDisabled: number) {
     this.disabledFilter = isDisabled == 1 ? true : false;
     let element = document.getElementById('transaction-list');
     if (element) element.style.marginTop = isDisabled == 0 ? '40px' : '160px';
   }
 
+  //Filtra transações por nome
   async filterTransactionsByName() {
     await this.transactionListComponent.transactions.filter(
       async (transaction: Transaction) => {
@@ -98,6 +110,7 @@ export class TransactionFilterComponent implements OnInit {
     );
   }
 
+  //Filtra transações por status
   async filterTransactionsByStatus() {
     await this.transactionListComponent.transactions.filter(
       async (transaction: Transaction) => {
@@ -146,7 +159,7 @@ export class TransactionFilterComponent implements OnInit {
       return false;
     } else if (this.transactionName.length < 3) {
       let errorMsg = this.lSLanguage == '1' ?
-      'The title field must be at least 3 characters long!' :  'O campo título deve possuir no mínimo 3 caracteres!';
+        'The title field must be at least 3 characters long!' : 'O campo título deve possuir no mínimo 3 caracteres!';
       this.notificationService.showError(
         errorMsg,
         ''
@@ -159,7 +172,7 @@ export class TransactionFilterComponent implements OnInit {
   validateTransactionStatus() {
     if (!this.transactionStatus) {
       let errorMsg = this.lSLanguage == '1' ?
-      'Please select a status for the filter!' : 'Selecione um status para o filtro!';
+        'Please select a status for the filter!' : 'Selecione um status para o filtro!';
       this.notificationService.showError(
         errorMsg,
         ''

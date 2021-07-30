@@ -5,13 +5,15 @@ import { LoadingComponent } from 'src/shared/components/loading/loading.componen
   providedIn: 'root',
 })
 export class LoadingService {
-  constructor() {}
+  constructor() { }
 
+  //Exibe Loading por injeção de dependencia
   showLoading() {
     let loadingElement = document.getElementById('loading');
     if (loadingElement) loadingElement.style.display = 'block';
   }
 
+  //Fecha Loading por injeção de dependencia
   hideLoading() {
     let loadingElement = document.getElementById('loading');
     if (loadingElement) loadingElement.style.display = 'none';

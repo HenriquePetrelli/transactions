@@ -34,6 +34,7 @@ export class TransactionListComponent implements OnInit {
     await this.verifyLocalStorageLanguage();
   }
 
+  //Verifica se possui idioma escolhido no localStorage
   async verifyLocalStorageLanguage() {
     this.loadingService.showLoading();
     this.lSLanguage = localStorage.getItem('country');
@@ -41,6 +42,7 @@ export class TransactionListComponent implements OnInit {
     await this.getTransactionList();
   }
 
+  //Pega transações de Api de acordo com idioma
   async getTransactionList() {
     if (this.lSLanguage) {
       let endpoint = this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions");
@@ -64,33 +66,35 @@ export class TransactionListComponent implements OnInit {
     }
   }
 
+  //Pega detalhes de transação de Api de acordo com idioma
   async getTransactionDetails(id: string | undefined) {
     this.loadingService.showLoading();
     if (this.lSLanguage) {
       let endpoint = await this.helper.getTransactionsEndpointByLanguage(this.lSLanguage, "transactions")
-      if(endpoint)
-      await this.transactionService.getTransactionDetails(endpoint, id)
-        .then((response: ServerData) => {
-          if (!response.sucesso) {
+      if (endpoint)
+        await this.transactionService.getTransactionDetails(endpoint, id)
+          .then((response: ServerData) => {
+            if (!response.sucesso) {
+              this.loadingService.hideLoading();
+              return this.notificationService.showError(response.message, "");
+            }
+
             this.loadingService.hideLoading();
-            return this.notificationService.showError(response.message, "");
-          }
+            this.transactionDetail = response.data;
+            this.openModal("modal");
 
-          this.loadingService.hideLoading();
-          this.transactionDetail = response.data;
-          this.openModal("modal");
-
-          if (response.data.status)
-            this.fillStep(response.data.status);
-        }).catch(() => {
-          this.loadingService.hideLoading();
-          let errorMsg = this.lSLanguage == '1' ?
-            'There was an error receiving the transition details!' : 'Ocorreu um erro ao receber os detalhes da transição!';
-          this.notificationService.showError(errorMsg, "");
-        })
+            if (response.data.status)
+              this.fillStep(response.data.status);
+          }).catch(() => {
+            this.loadingService.hideLoading();
+            let errorMsg = this.lSLanguage == '1' ?
+              'There was an error receiving the transition details!' : 'Ocorreu um erro ao receber os detalhes da transição!';
+            this.notificationService.showError(errorMsg, "");
+          })
     }
   }
 
+  // Configura estilo de steps
   async fillStep(status: string) {
     let step1 = document.getElementById("step1");
     let step2 = document.getElementById("step2");
@@ -104,6 +108,7 @@ export class TransactionListComponent implements OnInit {
     this.changeStepClass(status, step1, step2, step3);
   }
 
+  // Altera step corrente de acordo com status da transição
   changeStepClass(status: string, step1: HTMLElement | null, step2: HTMLElement | null, step3: HTMLElement | null) {
     if (step1 && step2 && step3) {
       switch (status) {
@@ -134,16 +139,19 @@ export class TransactionListComponent implements OnInit {
     }
   }
 
+  //Converte real para dolar dependendo do idioma selecionado
   convertRealForDollar(transactions: Transaction[]) {
     transactions.forEach((transaction: any) => {
       transaction.amount = this.helper.convertRealForDollar(transaction.amount);
     });
   }
 
+  // Abre modal
   openModal(id: string) {
     this.modalService.open(id);
   }
 
+  // Fecha modal
   closeModal(id: string) {
     this.modalService.close(id);
   }
