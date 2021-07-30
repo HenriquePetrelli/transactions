@@ -9,9 +9,9 @@
             <li class="country">
                 
                 <div class="dropdown">
-                    <img class="img-dropdown" *ngIf="language == '2'" src="../../../assets/imgs/icons/api.png" alt="Api"/>
-                    <img class="img-dropdown" *ngIf="language == '1'" src="../../../assets/imgs/icons/country/estados-unidos-rounded.png" alt="English"/>
-                    <img class="img-dropdown" *ngIf="language == '0'" src="../../../assets/imgs/icons/country/brasil-rounded.png" alt="Português"/>
+                    <img id="dropdown-country" class="img-dropdown" *ngIf="language == '2'" src="../../../assets/imgs/icons/api.png" alt="Api"/>
+                    <img id="dropdown-country" class="img-dropdown" *ngIf="language == '1'" src="../../../assets/imgs/icons/country/estados-unidos-rounded.png" alt="English"/>
+                    <img id="dropdown-country" class="img-dropdown" *ngIf="language == '0'" src="../../../assets/imgs/icons/country/brasil-rounded.png" alt="Português"/>
                     <div class="dropdown-content">
                         <div (click)="setCountry('0')" *ngIf="language != '0'">
                             <img class="country-option-dropdown" src="../../../assets/imgs/icons/country/brasil.png" alt="Português"/>
