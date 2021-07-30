@@ -8,15 +8,18 @@ export class Helper {
 
   constructor() { }
 
+  //Método utilizado para remover acentos em filtro por nome
   removeAccents(str: string | undefined) {
     return str?.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
   }
 
+  //Método utilizado para converter real para dolar quando o idioma selecionado for Inglês
   convertRealForDollar(real: number) {
     let dollar = real * 5.12;
     return dollar.toFixed(2);
   }
 
+  //Retorna Url base das APIs de acordo com idioma selecionado
   getUrlApi() {
     let lSLanguage = localStorage.getItem('country');
     switch (lSLanguage) {
@@ -31,6 +34,7 @@ export class Helper {
     }
   }
 
+  //Método retorna o endpoint para acessar API de acordo com idioma selecionado
   getTransactionsEndpointByLanguage(language: string, endpoint: string) {
     switch (language) {
       case "0":
@@ -45,6 +49,7 @@ export class Helper {
     }
   }
 
+  //Método utilizado para futura implementação para trabalhar com feedback retornado de API
   responseStatus(response: any) {
     let lSLanguage = localStorage.getItem('country');
     switch (response.status) {

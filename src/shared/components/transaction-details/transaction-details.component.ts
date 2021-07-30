@@ -18,13 +18,12 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     document.body.appendChild(this.element);
-    // close modal on background click
+    // Ao clicar no plano de fundo da modal, ela fechará
     await this.element.addEventListener('click', (el: { target: { className: string; }; }) => {
       if (el.target.className === 'modal') {
         this.close();
       }
     });
-
     this.modalService.add(this);
   }
 
@@ -33,13 +32,13 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
     this.element.remove();
   }
 
-  // open modal
+  // Abre modal
   open(): void {
     this.element.style.display = 'block';
     document.body.classList.add('modal-open');
   }
 
-  // close modal
+  // Fecha modal
   close(): void {
     this.element.style.display = 'none';
     document.body.classList.remove('modal-open');

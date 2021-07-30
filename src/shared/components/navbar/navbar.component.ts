@@ -12,12 +12,13 @@ export class NavbarComponent implements OnInit {
   constructor(private notificationService: NotificationService, private loadingService: LoadingService) {
     this.language = "2";
   }
-  
+
   ngOnInit(): void {
     this.language = "2";
     this.verifyLocalStorageLanguage();
   }
 
+  //Verifica se já possui em localStorage algum idioma
   async verifyLocalStorageLanguage() {
     this.loadingService.showLoading();
     let lSLanguage = localStorage.getItem('country');
@@ -26,11 +27,11 @@ export class NavbarComponent implements OnInit {
     this.loadingService.hideLoading();
   }
 
+  //A escolha de idioma do usuário ficará salva no localStorage
   async setCountry(country: string) {
     this.loadingService.showLoading();
     localStorage.setItem('country', country);
     this.language = country;
-    this.loadingService.hideLoading();
     window.location.href = ('/');
   }
 }

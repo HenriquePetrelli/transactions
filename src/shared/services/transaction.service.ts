@@ -14,6 +14,7 @@ export class TransactionService {
     this.lSLanguage = localStorage.getItem('country');
   }
 
+  //Chamada para API para receber lista de transações
   async getTransactions(endpoint: string) {
     let url = this.helper.getUrlApi() + endpoint;
     return await axios.get(url)
@@ -29,9 +30,10 @@ export class TransactionService {
       })
   }
 
+   //Chamada para API para receber detalhes de transação
   async getTransactionDetails(endpoint: string | null, param: string | undefined) {
-    if(!endpoint)
-    console.log("NAO TEM ENPOINT");
+    if (!endpoint)
+      console.log("NAO TEM ENPOINT");
     let url = this.helper.getUrlApi() + endpoint + param;
     return await axios.get(url)
       .then((apiResponse: AxiosResponse<Transaction>) => {
@@ -39,10 +41,10 @@ export class TransactionService {
         return response;
       }).catch(() => {
         let errorBodyMsg = this.lSLanguage == '1' ?
-        'There was an error receiving the transaction details!' : 'Ocorreu um erro ao receber as os detalhes da transação!';
-      let errorTitleMsg = this.lSLanguage == '1' ?
-        'Contact the administrator' : 'Entre em contato com o administrador';
-      return this.notificationService.showError(errorBodyMsg, errorTitleMsg);
+          'There was an error receiving the transaction details!' : 'Ocorreu um erro ao receber as os detalhes da transação!';
+        let errorTitleMsg = this.lSLanguage == '1' ?
+          'Contact the administrator' : 'Entre em contato com o administrador';
+        return this.notificationService.showError(errorBodyMsg, errorTitleMsg);
       })
   }
 

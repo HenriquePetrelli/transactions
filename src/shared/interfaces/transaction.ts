@@ -1,3 +1,4 @@
+// Interface utilizada em objeto Transação
 export interface Transaction {
     id?: string,
     title?: string,

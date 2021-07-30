@@ -1,21 +1,9 @@
 <section>
-  <img
-    class="icon-navbar icon-filter"
-    *ngIf="!disabledFilter"
-    (click)="disableFilter(1)"
-    src="../../../assets/imgs/icons/filter.svg"
-  />
-  <img
-    class="icon-navbar icon-filter"
-    *ngIf="disabledFilter"
-    (click)="disableFilter(0)"
-    src="../../../assets/imgs/icons/filter-disabled.svg"
-  />
-  <img
-    (click)="reloadTransactions()"
-    class="icon-navbar icon-reload"
-    src="../../../assets/imgs/icons/refresh.png"
-  />
+  <img class="icon-navbar icon-filter" *ngIf="!disabledFilter" (click)="btnDisableFilter(1)"
+    src="../../../assets/imgs/icons/filter.svg" />
+  <img class="icon-navbar icon-filter" *ngIf="disabledFilter" (click)="btnDisableFilter(0)"
+    src="../../../assets/imgs/icons/filter-disabled.svg" />
+  <img (click)="reloadTransactions()" class="icon-navbar icon-reload" src="../../../assets/imgs/icons/refresh.png" />
   <div class="filter-label" *ngIf="!disabledFilter">
     <h4 *ngIf="lSLanguage != '1'">Selecione as opções de filtro</h4>
     <h4 *ngIf="lSLanguage == '1'">Select filter options</h4>
@@ -30,17 +18,10 @@
         </select>
       </div>
 
-      <input
-        placeholder="Digite o título"
-        *ngIf="filterOption == '0' && !disabledFilter"
-        [(ngModel)]="transactionName"
-        class="input filter-text"
-      />
+      <input placeholder="Digite o título" *ngIf="filterOption == '0' && !disabledFilter" [(ngModel)]="transactionName"
+        class="input filter-text" />
 
-      <div
-        class="select filter-text"
-        *ngIf="filterOption == '1' && !disabledFilter"
-      >
+      <div class="select filter-text" *ngIf="filterOption == '1' && !disabledFilter">
         <select [(ngModel)]="transactionStatus" name="slct" id="slct">
           <option value="criado" *ngIf="lSLanguage == '0'">Criado</option>
           <option value="created" *ngIf="lSLanguage != '0'">Created</option>
@@ -52,32 +33,16 @@
       </div>
     </div>
 
-    <button
-      (click)="btnFilterTransactions()"
-      class="btn btn-search"
-      *ngIf="lSLanguage != '1'"
-    >
+    <button (click)="btnFilterTransactions()" class="btn btn-search" *ngIf="lSLanguage != '1'">
       Pesquisar
     </button>
-    <button
-      (click)="btnFilterTransactions()"
-      class="btn btn-search"
-      *ngIf="lSLanguage == '1'"
-    >
+    <button (click)="btnFilterTransactions()" class="btn btn-search" *ngIf="lSLanguage == '1'">
       Search
     </button>
-    <button
-      (click)="btnCleanFilters()"
-      class="btn btn-clean"
-      *ngIf="lSLanguage != '1'"
-    >
+    <button (click)="btnCleanFilters()" class="btn btn-clean" *ngIf="lSLanguage != '1'">
       Limpar Filtros
     </button>
-    <button
-      (click)="btnCleanFilters()"
-      class="btn btn-clean"
-      *ngIf="lSLanguage == '1'"
-    >
+    <button (click)="btnCleanFilters()" class="btn btn-clean" *ngIf="lSLanguage == '1'">
       Clean Filters
     </button>
   </div>
